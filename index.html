@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ukulele Mondays | Not Your Usual Ukulele Band</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, .font-brand {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        /* Video Background Section Utility */
+        .video-bg-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .video-bg-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 0;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 1;
+        }
+        .video-content {
+            position: relative;
+            z-index: 2;
+        }
+        /* Page Transitions */
+        .page-content {
+            display: none;
+        }
+        .page-active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-amber-50 text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass border-b border-amber-100">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="showPage('home')">
+                <svg viewBox="0 0 24 24" class="w-8 h-8 fill-amber-600" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C10.9 2 10 2.9 10 4V7.26C8.83 7.64 8 8.73 8 10C8 11.27 8.83 12.36 10 12.74V15H8C6.9 15 6 15.9 6 17V20C6 21.1 6.9 22 8 22H16C17.1 22 18 21.1 18 20V17C18 15.9 17.1 15 16 15H14V12.74C15.17 12.36 16 11.27 16 10C16 8.73 15.17 7.64 14 7.26V4C14 2.9 13.1 2 12 2M12 4H12.5V7H11.5V4H12M12 9C12.55 9 13 9.45 13 10C13 10.55 12.55 11 12 11C11.45 11 11 10.55 11 10C11 9.45 11.45 9 12 9M10 17H14V20H10V17Z"/>
+                </svg>
+                <span class="text-2xl font-semibold tracking-tight text-amber-900">Ukulele Mondays</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 font-medium">
+                <a href="javascript:void(0)" onclick="showPage('home')" class="hover:text-amber-600 transition">Home</a>
+                <a href="javascript:void(0)" onclick="showPage('setlist')" class="hover:text-amber-600 transition">Full Setlist</a>
+                <a href="#videos" onclick="showPage('home')" class="hover:text-amber-600 transition">Videos</a>
+                <a href="#gigs" onclick="showPage('home')" class="hover:text-amber-600 transition">Gigs</a>
+                <a href="#booking" class="bg-amber-600 text-white px-5 py-2 rounded-full hover:bg-amber-700 transition">Book Us</a>
+            </div>
+            <button class="md:hidden p-2 text-amber-900" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-amber-100 flex flex-col p-4 space-y-3 font-medium">
+            <a href="javascript:void(0)" onclick="showPage('home')" class="py-2">Home</a>
+            <a href="javascript:void(0)" onclick="showPage('setlist')" class="py-2">Full Setlist</a>
+            <a href="#videos" onclick="showPage('home')" class="py-2">Videos</a>
+            <a href="#gigs" onclick="showPage('home')" class="py-2">Gigs</a>
+            <a href="#booking" class="py-2 text-amber-600">Book Us</a>
+        </div>
+    </nav>
+
+    <!-- PAGE: HOME -->
+    <div id="home-page" class="page-content page-active">
+        
+        <!-- Hero Section -->
+        <header class="pt-32 pb-20 px-4">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 space-y-6">
+                    <span class="inline-block px-4 py-1 rounded-full bg-amber-100 text-amber-700 font-semibold text-sm uppercase tracking-wide">Charity Powered Music</span>
+                    <h1 class="text-5xl md:text-7xl font-semibold leading-tight text-slate-900">
+                        Not your usual <br>
+                        <span class="text-amber-600">Ukulele Band.</span>
+                    </h1>
+                    <p class="text-xl text-slate-600 leading-relaxed">
+                        We take the tiny instrument to big heights, playing high-energy covers that get the crowd jumping—all to raise money for local causes.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#booking" class="px-8 py-4 bg-amber-600 text-white rounded-2xl font-semibold hover:bg-amber-700 transition shadow-lg shadow-amber-200">Book a Gig</a>
+                        <a href="javascript:void(0)" onclick="showPage('setlist')" class="px-8 py-4 border-2 border-slate-200 text-slate-700 rounded-2xl font-semibold hover:border-amber-400 transition">View Full Setlist</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <div class="w-full h-80 md:h-[450px] bg-amber-200 rounded-3xl overflow-hidden relative rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                        <!-- USING YOUR SUPPLIED IMAGE HERE -->
+                        <img src="heroimage.jpg" 
+                             class="w-full h-full object-cover" 
+                             alt="Ukulele Mondays branded microphone stand at a live performance"
+                             onerror="this.src='https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=1200&auto=format&fit=crop'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-amber-900/30 to-transparent"></div>
+                    </div>
+                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-rose-400 rounded-full flex items-center justify-center text-white font-bold -rotate-12 shadow-xl animate-bounce">
+                        CHARITY!
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Cinematic Video Break Section -->
+        <section class="video-bg-container h-[550px] flex items-center justify-center text-white">
+            <video autoplay muted loop playsinline poster="backgroundimage.jpg?q=80&w=2070&auto=format&fit=crop">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-band-of-musicians-performing-on-stage-4412-large.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+            <div class="video-content max-w-3xl px-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">Big Sound. Tiny Guitars.</h2>
+                <p class="text-xl md:text-2xl font-light text-amber-100 mb-8 leading-relaxed">
+                    Forget everything you know about the ukulele. We're bringing rock, pop, and soul to every performance with an energy that fills the room.
+                </p>
+                <a href="#videos" class="inline-block px-8 py-3 border-2 border-amber-400 text-amber-400 rounded-full font-bold hover:bg-amber-400 hover:text-slate-900 transition">Watch Us In Action</a>
+            </div>
+        </section>
+
+        <!-- Impact Counter -->
+        <section class="bg-slate-900 py-20 text-white overflow-hidden">
+            <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                <div class="space-y-2">
+                    <div class="text-5xl font-bold text-amber-400">£12.5k</div>
+                    <div class="text-slate-400 uppercase text-xs tracking-[0.2em]">Raised For Charity</div>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-5xl font-bold text-amber-400">150+</div>
+                    <div class="text-slate-400 uppercase text-xs tracking-[0.2em]">Songs Ready</div>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-5xl font-bold text-amber-400">45</div>
+                    <div class="text-slate-400 uppercase text-xs tracking-[0.2em]">Gigs Played</div>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-5xl font-bold text-amber-400">10</div>
+                    <div class="text-slate-400 uppercase text-xs tracking-[0.2em]">Active Members</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Gallery Section -->
+        <section id="videos" class="py-24 px-4 bg-white">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-semibold mb-4">Live Performance Videos</h2>
+                    <p class="text-slate-500 max-w-xl mx-auto">From high-octane rock covers to soulful singalongs, see what Ukulele Mondays is all about.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Video Card 1 -->
+                    <div class="group cursor-pointer">
+                        <div class="relative aspect-video bg-slate-200 rounded-3xl overflow-hidden mb-4 shadow-lg group-hover:shadow-amber-200 transition">
+                            <div class="absolute inset-0 bg-slate-800/40 group-hover:bg-slate-800/20 transition flex items-center justify-center">
+                                <div class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center text-amber-600 scale-90 group-hover:scale-100 transition shadow-xl">
+                                    <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=1000&auto=format" alt="Performance thumbnail" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-lg font-bold">"Toxic" - Live at City Hall</h4>
+                        <p class="text-sm text-slate-500">Fundraiser for local Children's Hospital</p>
+                    </div>
+                    <!-- Video Card 2 -->
+                    <div class="group cursor-pointer">
+                        <div class="relative aspect-video bg-slate-200 rounded-3xl overflow-hidden mb-4 shadow-lg group-hover:shadow-amber-200 transition">
+                            <div class="absolute inset-0 bg-slate-800/40 group-hover:bg-slate-800/20 transition flex items-center justify-center">
+                                <div class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center text-amber-600 scale-90 group-hover:scale-100 transition shadow-xl">
+                                    <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1507838596056-a376cf4035a2?q=80&w=1000&auto=format" alt="Performance thumbnail" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-lg font-bold">Charity Showcase 2025</h4>
+                        <p class="text-sm text-slate-500">Highlights from our community garden project</p>
+                    </div>
+                    <!-- Video Card 3 -->
+                    <div class="group cursor-pointer">
+                        <div class="relative aspect-video bg-slate-200 rounded-3xl overflow-hidden mb-4 shadow-lg group-hover:shadow-amber-200 transition">
+                            <div class="absolute inset-0 bg-slate-800/40 group-hover:bg-slate-800/20 transition flex items-center justify-center">
+                                <div class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center text-amber-600 scale-90 group-hover:scale-100 transition shadow-xl">
+                                    <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1000&auto=format" alt="Performance thumbnail" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-lg font-bold">"Hey Jude" Singalong</h4>
+                        <p class="text-sm text-slate-500">Glaston-ukulele Festival Main Stage</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gig List -->
+        <section id="gigs" class="py-24 px-4 bg-amber-50">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-semibold mb-12 text-center">Upcoming Gigs</h2>
+                <div class="space-y-4">
+                    <div class="p-6 rounded-3xl bg-white card-shadow flex flex-col md:flex-row justify-between items-center group hover:bg-amber-100 transition border border-amber-100">
+                        <div class="flex items-center space-x-6">
+                            <div class="text-center"><span class="block text-2xl font-bold">14</span><span class="text-xs uppercase font-bold text-amber-600">MAR</span></div>
+                            <div><h3 class="font-bold text-lg">St. Jude's Spring Fair</h3><p class="text-slate-500">Community Hall - 2:00 PM</p></div>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <span class="px-4 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase">Children's Hospital Charity</span>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-3xl bg-white card-shadow flex flex-col md:flex-row justify-between items-center group hover:bg-amber-100 transition border border-amber-100">
+                        <div class="flex items-center space-x-6">
+                            <div class="text-center"><span class="block text-2xl font-bold">22</span><span class="text-xs uppercase font-bold text-amber-600">MAR</span></div>
+                            <div><h3 class="font-bold text-lg">Downtown Food Market</h3><p class="text-slate-500">Main Stage - 12:30 PM</p></div>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <span class="px-4 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase">Local Shelter Fund</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking" class="py-24 px-4 bg-slate-900 text-white">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16">
+                <div class="md:w-1/2">
+                    <h2 class="text-5xl font-semibold mb-6">Let's Make Some Noise.</h2>
+                    <p class="text-xl text-slate-400 mb-8">Ready to book the band? From private parties to massive festivals, we're ready. Every penny earned goes straight to our charity partners.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 text-amber-400 font-bold">
+                            <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                            </div>
+                            <span>hello@ukulelemondays.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <form class="bg-slate-800 p-8 rounded-3xl space-y-4" onsubmit="event.preventDefault(); alert('Message sent! (Simulation)');">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="Your Name" class="w-full bg-slate-700 rounded-xl p-3 border-none focus:ring-2 focus:ring-amber-500 text-white outline-none">
+                            <input type="email" placeholder="Email Address" class="w-full bg-slate-700 rounded-xl p-3 border-none focus:ring-2 focus:ring-amber-500 text-white outline-none">
+                        </div>
+                        <textarea placeholder="Tell us about your event..." rows="4" class="w-full bg-slate-700 rounded-xl p-3 border-none focus:ring-2 focus:ring-amber-500 text-white outline-none"></textarea>
+                        <button type="submit" class="w-full py-4 bg-amber-600 rounded-xl font-bold hover:bg-amber-500 transition shadow-lg shadow-amber-900/40 uppercase tracking-widest">Send Booking Request</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- PAGE: FULL SETLIST -->
+    <div id="setlist-page" class="page-content pt-32 pb-24 px-4 bg-white min-h-screen">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-6">
+                <div class="text-center md:text-left">
+                    <button onclick="showPage('home')" class="text-amber-600 font-bold hover:underline mb-4 inline-flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        Back to Home
+                    </button>
+                    <h1 class="text-5xl font-bold text-slate-900">The Full Setlist</h1>
+                    <p class="text-xl text-slate-500 mt-2">Our ever-growing repertoire of 4-string wonders.</p>
+                </div>
+                <div class="relative w-full md:w-auto">
+                    <input type="text" placeholder="Search songs..." class="w-full md:w-64 border-2 border-amber-100 rounded-2xl px-5 py-3 focus:border-amber-500 outline-none">
+                </div>
+            </div>
+
+            <div class="space-y-16">
+                <!-- Pop -->
+                <div>
+                    <h2 class="text-2xl font-bold text-amber-600 mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center mr-3">✨</span> Modern Pop
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-amber-50 transition">
+                            <h4 class="font-bold">Bad Guy</h4><p class="text-sm text-slate-400">Billie Eilish</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-amber-50 transition">
+                            <h4 class="font-bold">Levitating</h4><p class="text-sm text-slate-400">Dua Lipa</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-amber-50 transition">
+                            <h4 class="font-bold">Shake It Off</h4><p class="text-sm text-slate-400">Taylor Swift</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-amber-50 transition">
+                            <h4 class="font-bold">Flowers</h4><p class="text-sm text-slate-400">Miley Cyrus</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-amber-50 transition">
+                            <h4 class="font-bold">Watermelon Sugar</h4><p class="text-sm text-slate-400">Harry Styles</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-amber-50 transition">
+                            <h4 class="font-bold">As It Was</h4><p class="text-sm text-slate-400">Harry Styles</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rock -->
+                <div>
+                    <h2 class="text-2xl font-bold text-rose-600 mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-rose-100 rounded-lg flex items-center justify-center mr-3">🎸</span> Rock Classics
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-rose-50 transition">
+                            <h4 class="font-bold">Dream On</h4><p class="text-sm text-slate-400">Aerosmith</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-rose-50 transition">
+                            <h4 class="font-bold">Hotel California</h4><p class="text-sm text-slate-400">The Eagles</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-rose-50 transition">
+                            <h4 class="font-bold">Creep</h4><p class="text-sm text-slate-400">Radiohead</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-rose-50 transition">
+                            <h4 class="font-bold">Sweet Child O' Mine</h4><p class="text-sm text-slate-400">Guns N' Roses</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-rose-50 transition">
+                            <h4 class="font-bold">Mr. Brightside</h4><p class="text-sm text-slate-400">The Killers</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-rose-50 transition">
+                            <h4 class="font-bold">Seven Nation Army</h4><p class="text-sm text-slate-400">The White Stripes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soul -->
+                <div>
+                    <h2 class="text-2xl font-bold text-sky-600 mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center mr-3">🎷</span> Soul & Motown
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-sky-50 transition">
+                            <h4 class="font-bold">Superstition</h4><p class="text-sm text-slate-400">Stevie Wonder</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-sky-50 transition">
+                            <h4 class="font-bold">Valerie</h4><p class="text-sm text-slate-400">Amy Winehouse</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-sky-50 transition">
+                            <h4 class="font-bold">Respect</h4><p class="text-sm text-slate-400">Aretha Franklin</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-sky-50 transition">
+                            <h4 class="font-bold">Lovely Day</h4><p class="text-sm text-slate-400">Bill Withers</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-sky-50 transition">
+                            <h4 class="font-bold">Stand By Me</h4><p class="text-sm text-slate-400">Ben E. King</p>
+                        </div>
+                        <div class="p-4 border border-slate-100 rounded-2xl hover:bg-sky-50 transition">
+                            <h4 class="font-bold">Uptown Funk</h4><p class="text-sm text-slate-400">Bruno Mars</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20 text-center border-t border-slate-100 pt-10">
+                <p class="text-slate-500 mb-6">Need a custom set for your wedding or fundraiser?</p>
+                <button onclick="showPage('home'); window.location.hash='#booking'" class="px-8 py-4 bg-amber-600 text-white rounded-2xl font-bold hover:bg-amber-700 shadow-xl transition">Request a Song</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-slate-900 border-t border-slate-800 text-center text-slate-500">
+        <div class="max-w-6xl mx-auto px-4">
+            <p>&copy; 2026 Ukulele Mondays. Play big, give back.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for nav links (home page only)
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    showPage('home');
+                    setTimeout(() => {
+                        const element = document.querySelector(targetId);
+                        if(element) element.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Simple SPA Routing logic
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active'));
+            const page = document.getElementById(pageId + '-page');
+            if (page) {
+                page.classList.add('page-active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
